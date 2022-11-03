@@ -51,28 +51,33 @@ const BoardList = () => {
   if (list.length === 0) return <div>게시글이 없습니다.</div>;
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>제목</th>
-          <th>작성자</th>
-          <th>작성일</th>
-          <th>비고</th>
-        </tr>
-      </thead>
-      <tbody>
-        {list.map((item) => (
-          <tr key={item._id}>
-            <td>{item.title}</td>
-            <td>{item.writer}</td>
-            <td>{item.created_at}</td>
-            <td>
-              <button onClick={handleClick(item._id)}>상세</button>
-            </td>
+    <>
+      <h1>게시판 목록</h1>
+      <br />
+      <br />
+      <table>
+        <thead>
+          <tr>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <th>비고</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {list.map((item) => (
+            <tr key={item._id}>
+              <td>{item.title}</td>
+              <td>{item.writer}</td>
+              <td>{item.created_at}</td>
+              <td>
+                <button onClick={handleClick(item._id)}>상세</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
   );
 };
 
