@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PrivateRouter from "./components/PrivateRouter";
 import Login from "./components/Login";
 import Join from "./components/Join";
+import NotFound from "./components/NotFound";
 import BoardList from "./components/BoardList";
 import BoardDetail from "./components/BoardDetail";
 
@@ -28,6 +29,7 @@ const App = () => {
             </PrivateRouter>
           }
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
