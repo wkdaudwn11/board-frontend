@@ -18,18 +18,6 @@ const Input = styled.input`
   padding: 0 4px;
 `;
 
-const InputBox = styled.div`
-  display: flex;
-  align-items: center;
-  width: 400px;
-  height: 30px;
-  font-size: 12px;
-  padding: 0 4px;
-  background-color: lightgray;
-  cursor: not-allowed;
-  border: 1px solid black;
-`;
-
 const Textarea = styled.textarea`
   width: 400px;
   min-height: 100px;

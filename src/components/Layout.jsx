@@ -5,7 +5,10 @@ const LayoutBlock = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+  min-width: 800px;
   height: 100vh;
+  min-height: 500px;
+  background-color: #efefef;
 `;
 
 const Layout = ({ children }) => {

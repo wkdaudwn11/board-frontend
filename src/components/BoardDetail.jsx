@@ -229,10 +229,10 @@ const BoardDetail = () => {
       <Textarea name="content" value={inputs.content} onChange={handleChange} />
 
       <ButtonGroup>
-        <Button color="green" onClick={() => handleUpdate(detailData._id)}>
+        <Button color="green" handleClick={() => handleUpdate(detailData._id)}>
           {updateLoading ? "loading.." : "수정"}
         </Button>
-        <Button color="red" onClick={() => handleDelete(detailData._id)}>
+        <Button color="red" handleClick={() => handleDelete(detailData._id)}>
           {deleteLoading ? "loading.." : "삭제"}
         </Button>
       </ButtonGroup>
