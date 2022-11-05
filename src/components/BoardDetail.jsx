@@ -29,7 +29,8 @@ const InputBox = styled.div`
   border: 1px solid black;
 `;
 
-const Pre = styled.pre`
+const Textarea = styled.textarea`
+  width: 400px;
   min-height: 100px;
   margin: 0;
   padding: 4px;
@@ -81,6 +82,11 @@ const BoardDetail = () => {
   const [updateLoading, setUpdateLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
+  const [inputs, setInputs] = useState({
+    title: "",
+    content: "",
+  });
+
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -103,6 +109,10 @@ const BoardDetail = () => {
       if (!success) throw new Error(message);
 
       setDetailData(data);
+      setInputs({
+        title: data.title,
+        content: data.content,
+      });
     } catch (e) {
       setError(e);
       console.error(e);
@@ -111,12 +121,55 @@ const BoardDetail = () => {
     }
   }, [id]);
 
+  const handleChange = (e) => {
+    console.log(e.target);
+    setInputs({
+      ...inputs,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const handleUpdate = async (id) => {
     try {
       if (!id) throw new Error("id is required");
 
       setUpdateLoading(true);
-      alert(id);
+
+      const { title, content } = inputs;
+
+      if (title === detailData.title && content === detailData.content) {
+        alert("변경사항이 없습니다.");
+        return;
+      }
+
+      if (!title) {
+        alert("제목을 입력해주세요.");
+        return;
+      }
+
+      if (!content) {
+        alert("내용을 입력해주세요.");
+        return;
+      }
+
+      const { data: response } = await axios({
+        headers: {
+          authorization: `Bearer ${sessionStorage.getItem("ACCESS_TOKEN")}`,
+        },
+        method: "patch",
+        url: `http://localhost:4000/board`,
+        data: {
+          id,
+          title,
+          content,
+        },
+      });
+
+      const { success, message } = response;
+
+      if (!success) throw new Error(message);
+
+      alert("성공적으로 수정되었습니다.");
     } catch (e) {
       alert(e.message);
     } finally {
@@ -187,10 +240,15 @@ const BoardDetail = () => {
       </InputBox>
 
       <Label>제목</Label>
-      <Input type="text" name="title" value={detailData.title} />
+      <Input
+        type="text"
+        name="title"
+        value={inputs.title}
+        onChange={handleChange}
+      />
 
       <Label>내용</Label>
-      <Pre>{detailData.content}</Pre>
+      <Textarea name="content" value={inputs.content} onChange={handleChange} />
 
       <ButtonGroup>
         <button
