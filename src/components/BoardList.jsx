@@ -17,15 +17,16 @@ const Table = styled.div`
   th,
   td {
     width: auto;
-    height: 40px;
+    height: 30px;
     padding: 0 10px;
     text-align: center;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
+    font-size: 12px;
   }
 
   th {
-    height: 25px;
+    height: 20px;
     background-color: black;
     color: white;
   }
@@ -98,7 +99,9 @@ const BoardList = () => {
     <div>
       <h1>게시판 목록</h1>
       <ButtonBox>
-        <Button color="skyblue">게시글 등록</Button>
+        <Button color="blue" handleClick={() => navigate("/write")}>
+          게시글 등록
+        </Button>
       </ButtonBox>
       <Table>
         <thead>
@@ -120,7 +123,14 @@ const BoardList = () => {
                 <Moment format="YYYY-MM-DD HH:mm:ss">{item.created_at}</Moment>
               </td>
               <td>
-                <button onClick={handleClick(item._id)}>상세</button>
+                <Button
+                  width="50px"
+                  height="20px"
+                  color="gray"
+                  handleClick={handleClick(item._id)}
+                >
+                  상세
+                </Button>
               </td>
             </tr>
           ))}

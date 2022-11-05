@@ -7,6 +7,7 @@ import Join from "./components/Join";
 import NotFound from "./components/NotFound";
 import BoardList from "./components/BoardList";
 import BoardDetail from "./components/BoardDetail";
+import BoardWrite from "./components/BoardWrite";
 
 const App = () => {
   return (
@@ -28,6 +29,14 @@ const App = () => {
             element={
               <PrivateRouter>
                 <BoardDetail />
+              </PrivateRouter>
+            }
+          />
+          <Route
+            path="/write"
+            element={
+              <PrivateRouter>
+                <BoardWrite />
               </PrivateRouter>
             }
           />
