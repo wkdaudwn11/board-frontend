@@ -4,6 +4,8 @@ import axios from "axios";
 import styled from "@emotion/styled";
 import Moment from "react-moment";
 
+import Button from "./Button";
+
 const Table = styled.div`
   border-top: 1px solid black;
   border-left: 1px solid black;
@@ -35,6 +37,13 @@ const Table = styled.div`
   .date {
     width: 200px;
   }
+`;
+
+const ButtonBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 12px;
 `;
 
 const BoardList = () => {
@@ -88,6 +97,9 @@ const BoardList = () => {
   return (
     <div>
       <h1>게시판 목록</h1>
+      <ButtonBox>
+        <Button color="skyblue">게시글 등록</Button>
+      </ButtonBox>
       <Table>
         <thead>
           <tr>

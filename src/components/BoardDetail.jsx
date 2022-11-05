@@ -4,6 +4,8 @@ import axios from "axios";
 import styled from "@emotion/styled";
 import Moment from "react-moment";
 
+import Button from "./Button";
+
 const Label = styled.div`
   font-size: 12px;
   color: red;
@@ -44,34 +46,6 @@ const ButtonGroup = styled.div`
   align-items: center;
   justify-content: flex-end;
   margin-top: 12px;
-
-  button {
-    width: 100px;
-    height: 30px;
-    transition: 0.2s all;
-    font-weight: 700;
-    cursor: pointer;
-
-    &:hover {
-      border-radius: 12px;
-    }
-  }
-
-  button.update-btn {
-    border: 1px solid green;
-    background-color: green;
-    color: white;
-  }
-
-  button.delete-btn {
-    border: 1px solid red;
-    background-color: red;
-    color: white;
-  }
-
-  button + button {
-    margin-left: 12px;
-  }
 `;
 
 const BoardDetail = () => {
@@ -251,18 +225,12 @@ const BoardDetail = () => {
       <Textarea name="content" value={inputs.content} onChange={handleChange} />
 
       <ButtonGroup>
-        <button
-          className="update-btn"
-          onClick={() => handleUpdate(detailData._id)}
-        >
+        <Button color="green" onClick={() => handleUpdate(detailData._id)}>
           {updateLoading ? "loading.." : "수정"}
-        </button>
-        <button
-          className="delete-btn"
-          onClick={() => handleDelete(detailData._id)}
-        >
+        </Button>
+        <Button color="red" onClick={() => handleDelete(detailData._id)}>
           {deleteLoading ? "loading.." : "삭제"}
-        </button>
+        </Button>
       </ButtonGroup>
     </div>
   );
