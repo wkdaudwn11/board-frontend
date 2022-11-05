@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
@@ -51,6 +51,7 @@ const Login = () => {
 
   return (
     <div>
+      <Link to="/join">회원가입 페이지로 이동</Link>
       <h1>로그인</h1>
       <div>
         이메일:{" "}
@@ -70,6 +71,7 @@ const Login = () => {
           onChange={handleChange}
         />
       </div>
+      <br />
       <div>
         <button onClick={handleSubmit}>로그인하기</button>
       </div>

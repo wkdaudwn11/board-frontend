@@ -1,6 +1,41 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import styled from "@emotion/styled";
+import Moment from "react-moment";
+
+const Table = styled.div`
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+
+  tr:nth-of-type(even) {
+    background-color: #efefef;
+  }
+
+  th,
+  td {
+    width: auto;
+    height: 40px;
+    padding: 0 10px;
+    text-align: center;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+  }
+
+  th {
+    height: 25px;
+    background-color: black;
+    color: white;
+  }
+
+  .title {
+    min-width: 200px;
+  }
+
+  .date {
+    width: 200px;
+  }
+`;
 
 const BoardList = () => {
   const [loading, setLoading] = useState(true);
@@ -51,33 +86,35 @@ const BoardList = () => {
   if (list.length === 0) return <div>게시글이 없습니다.</div>;
 
   return (
-    <>
+    <div>
       <h1>게시판 목록</h1>
-      <br />
-      <br />
-      <table>
+      <Table>
         <thead>
           <tr>
-            <th>제목</th>
+            <th className="number">No.</th>
+            <th className="title">제목</th>
             <th>작성자</th>
-            <th>작성일</th>
+            <th className="date">작성일</th>
             <th>비고</th>
           </tr>
         </thead>
         <tbody>
-          {list.map((item) => (
+          {list.map((item, idx) => (
             <tr key={item._id}>
-              <td>{item.title}</td>
+              <td className="number">{list.length - idx}</td>
+              <td className="title">{item.title}</td>
               <td>{item.writer}</td>
-              <td>{item.created_at}</td>
+              <td className="date">
+                <Moment format="YYYY-MM-DD HH:mm:ss">{item.created_at}</Moment>
+              </td>
               <td>
                 <button onClick={handleClick(item._id)}>상세</button>
               </td>
             </tr>
           ))}
         </tbody>
-      </table>
-    </>
+      </Table>
+    </div>
   );
 };
 

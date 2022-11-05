@@ -1,6 +1,77 @@
 import { useEffect, useState, useCallback } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import styled from "@emotion/styled";
+import Moment from "react-moment";
+
+const Label = styled.div`
+  font-size: 12px;
+  color: red;
+  margin-top: 12px;
+`;
+
+const Input = styled.input`
+  width: 400px;
+  height: 30px;
+  font-size: 12px;
+  padding: 0 4px;
+`;
+
+const InputBox = styled.div`
+  display: flex;
+  align-items: center;
+  width: 400px;
+  height: 30px;
+  font-size: 12px;
+  padding: 0 4px;
+  background-color: lightgray;
+  cursor: not-allowed;
+  border: 1px solid black;
+`;
+
+const Pre = styled.pre`
+  min-height: 100px;
+  margin: 0;
+  padding: 4px;
+  overflow-y: auto;
+  font-size: 12px;
+  border: 1px solid black;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 12px;
+
+  button {
+    width: 100px;
+    height: 30px;
+    transition: 0.2s all;
+    font-weight: 700;
+    cursor: pointer;
+
+    &:hover {
+      border-radius: 12px;
+    }
+  }
+
+  button.update-btn {
+    border: 1px solid green;
+    background-color: green;
+    color: white;
+  }
+
+  button.delete-btn {
+    border: 1px solid red;
+    background-color: red;
+    color: white;
+  }
+
+  button + button {
+    margin-left: 12px;
+  }
+`;
 
 const BoardDetail = () => {
   const [loading, setLoading] = useState(true);
@@ -55,40 +126,29 @@ const BoardDetail = () => {
   if (!detailData) return <div>게시글이 없습니다.</div>;
 
   return (
-    <>
+    <div>
+      <Link to="/">목록으로</Link>
       <h1>게시판 상세</h1>
-      <button onClick={() => navigate("/")}>목록으로..</button>
-      <br />
-      <br />
-      <table>
-        <tbody>
-          <tr>
-            <td>제목</td>
-            <td>{detailData.title}</td>
-          </tr>
-          <tr>
-            <td>내용</td>
-            <td>{detailData.content}</td>
-          </tr>
-          <tr>
-            <td>작성자</td>
-            <td>{detailData.writer}</td>
-          </tr>
-          <tr>
-            <td>작성일</td>
-            <td>{detailData.created_at}</td>
-          </tr>
-          <tr>
-            <td>
-              <button>수정</button>
-            </td>
-            <td>
-              <button>삭제</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </>
+
+      <Label>작성자</Label>
+      <InputBox>{detailData.writer}</InputBox>
+
+      <Label>작성일</Label>
+      <InputBox>
+        <Moment format="YYYY-MM-DD HH:mm:ss">{detailData.created_at}</Moment>
+      </InputBox>
+
+      <Label>제목</Label>
+      <Input type="text" name="title" value={detailData.title} />
+
+      <Label>내용</Label>
+      <Pre>{detailData.content}</Pre>
+
+      <ButtonGroup>
+        <button className="update-btn">수정</button>
+        <button className="delete-btn">삭제</button>
+      </ButtonGroup>
+    </div>
   );
 };
 

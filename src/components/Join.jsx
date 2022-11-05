@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 const Join = () => {
@@ -35,7 +35,7 @@ const Join = () => {
         return;
       }
       if (inputs.password !== inputs.passwordConfirm) {
-        alert("비밀번호가 서로 다릅니다.");
+        alert("비밀번호가 일치하지 않습니다.");
         return;
       }
       if (!inputs.name) {
@@ -70,6 +70,7 @@ const Join = () => {
 
   return (
     <div>
+      <Link to="/login">로그인 페이지로 이동</Link>
       <h1>회원가입</h1>
       <div>
         이메일:{" "}
@@ -110,12 +111,15 @@ const Join = () => {
       <div>
         나이:{" "}
         <input
-          type="text"
+          type="number"
+          min={1}
+          max={99}
           name="age"
           value={inputs.age}
           onChange={handleChange}
         />
       </div>
+      <br />
       <div>
         <button onClick={handleSubmit}>회원가입하기</button>
       </div>
