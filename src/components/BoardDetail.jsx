@@ -78,6 +78,9 @@ const BoardDetail = () => {
   const [error, setError] = useState(false);
   const [detailData, setDetailData] = useState(null);
 
+  const [updateLoading, setUpdateLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -107,6 +110,51 @@ const BoardDetail = () => {
       setLoading(false);
     }
   }, [id]);
+
+  const handleUpdate = async (id) => {
+    try {
+      if (!id) throw new Error("id is required");
+
+      setUpdateLoading(true);
+      alert(id);
+    } catch (e) {
+      alert(e.message);
+    } finally {
+      setUpdateLoading(false);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      if (!id) throw new Error("id is required");
+
+      if (!window.confirm("정말로 삭제하시겠습니까?")) return;
+
+      setDeleteLoading(true);
+
+      const { data: response } = await axios({
+        headers: {
+          authorization: `Bearer ${sessionStorage.getItem("ACCESS_TOKEN")}`,
+        },
+        method: "delete",
+        url: `http://localhost:4000/board`,
+        data: {
+          id,
+        },
+      });
+
+      const { success, message } = response;
+
+      if (!success) throw new Error(message);
+
+      alert("성공적으로 삭제되었습니다.");
+      navigate("/");
+    } catch (e) {
+      alert(e.message);
+    } finally {
+      setDeleteLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (!id) {
@@ -145,8 +193,18 @@ const BoardDetail = () => {
       <Pre>{detailData.content}</Pre>
 
       <ButtonGroup>
-        <button className="update-btn">수정</button>
-        <button className="delete-btn">삭제</button>
+        <button
+          className="update-btn"
+          onClick={() => handleUpdate(detailData._id)}
+        >
+          {updateLoading ? "loading.." : "수정"}
+        </button>
+        <button
+          className="delete-btn"
+          onClick={() => handleDelete(detailData._id)}
+        >
+          {deleteLoading ? "loading.." : "삭제"}
+        </button>
       </ButtonGroup>
     </div>
   );
