@@ -228,14 +228,19 @@ const BoardDetail = () => {
       <Label>내용</Label>
       <Textarea name="content" value={inputs.content} onChange={handleChange} />
 
-      <ButtonGroup>
-        <Button color="green" handleClick={() => handleUpdate(detailData._id)}>
-          {updateLoading ? "loading.." : "수정"}
-        </Button>
-        <Button color="red" handleClick={() => handleDelete(detailData._id)}>
-          {deleteLoading ? "loading.." : "삭제"}
-        </Button>
-      </ButtonGroup>
+      {detailData.isMyBoard && (
+        <ButtonGroup>
+          <Button
+            color="green"
+            handleClick={() => handleUpdate(detailData._id)}
+          >
+            {updateLoading ? "loading.." : "수정"}
+          </Button>
+          <Button color="red" handleClick={() => handleDelete(detailData._id)}>
+            {deleteLoading ? "loading.." : "삭제"}
+          </Button>
+        </ButtonGroup>
+      )}
     </div>
   );
 };
